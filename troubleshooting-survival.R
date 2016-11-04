@@ -27,23 +27,29 @@ library(raster)
 
 ## read in data (already subsetted to females only)
 rawdata <- read.csv("../Migration/HRoverlap/volumeintersection.csv")
-
-
+phrdata <- read.csv("phr.csv")
+lookdata <- read.csv("migstatus-prelimlook.csv")
+lookdata <- lookdata %>% select(c(AnimalID, Status))
 
 ## DISCRETIZING ####
 
 ## categorize individuals (and rank, for funzies) 
 mig <- rawdata %>%
+  right_join(phrdata, by = "IndivYr") %>%
+  right_join(lookdata, by = "AnimalID") %>%
   select(-FallVI) %>%
   rename(VI = SprVI) %>%
   transform(Rank = rank(-VI, ties.method = "random")) %>%
-  transform(Mig = ifelse(VI >= 0.5, "Resident",
-                  ifelse(VI == 0, "Migrant", 
-                         "Intermediate")))
+  transform(Mig = ifelse(PHR >= 0.5, "Resident",
+                  ifelse(PHR == 0, "Migrant", 
+                         "Intermediate"))) %>%
+  transform(PHRrank = rank(-PHR, ties.method="random"))
             
 ## visualize
 plot(VI ~ Rank, col = Mig, data=mig)
+plot(PHR ~ PHRrank, col = Mig, data=mig)
   #oh hell, everybody's intermediate... rethink
+hist(mig$VI)
 
 length(which(mig$Mig == "Migrant")) # feel good about this one
 length(which(mig$Mig == "Resident")) # nope nope nope

@@ -1,0 +1,71 @@
+DeviceID,EndDate,EndTime,EndLat,EndLong,StatusFeb16,EndCause1,EndCause2,Sex,AnimalID,Status,TimingSpr14,TimingFall14,TimingSpr15,TimingFall15,GenArea,Notes
+34903,2/15/2016,18:00:47,46.5061253,-114.0026767,Alive,Dropoff,NA,Female,140040,Migrant,May,Dec,April,Nov,Burnt Fk,intermediate area; non-directed movement
+34904,2/16/2016,0:01:36,46.5748333,-113.9316892,Alive,No drop,NA,Female,140050,Intermediate,NA,NA,NA,NA,,in same general area but using different areas within it winter/summer
+34905,2/15/2016,16:00:48,46.73946,-114.04012,Alive,Dropoff,NA,Female,140060,Intermediate,NA,NA,NA,NA,,"actually migrated once, in two months of spring 2014.. Doesn't technically count"
+34906,2/15/2016,16:00:48,46.69313,-114.10905,Alive,Dropoff,NA,Female,140070,Resident,NA,NA,NA,NA,,another walkabout-er
+34907,9/12/2015,20:00:30,46.46932,-113.90004,Unknown,Early drop,NA,Female,140100,Intermediate,NA,NA,NA,NA,Burnt Fk,used two different winter areas with summer area kind of in the middle
+34908,1/8/2016,16:02:48,46.48832,-113.94348,Unknown,Collar malfunction,NA,Female,140120,Migrant,May,Oct,April,Unknown,Burnt Fk,collar stopped transmitting during some mig times (the one that went in and out for a while) - no locs Jul -15  Jan 16
+34909,2/15/2016,16:00:47,46.50639,-114.00154,Alive,Dropoff,NA,Female,140290,Intermediate,NA,NA,NA,NA,,I'd lean towards resident tho
+34910,2/15/2016,6:00:30,46.8592844,-113.9083511,Alive,No drop,NA,Female,140300,Migrant,May,Oct,April,Nov,Davis Ck,Clear directed movements
+34911,2/15/2016,10:00:53,46.4895,-113.97984,Alive,Dropoff,NA,Female,140320,Intermediate,NA,NA,NA,NA,,"I'd lean towards migrant, but there's definitely some overlap"
+34912,2/15/2016,16:01:01,46.80176,-114.01352,Alive,Dropoff,NA,Female,140340,Migrant,May,Oct,April,Oct,Davis Ck,Clear directed movements
+34913a,11/8/2014,10:00:21,46.4723,-113.91333,Dead,Harvest,NA,Female,140360,Intermediate,NA,NA,NA,NA,Burnt Fk,1st yr harvest. Points are separated but some within same area. Kinda back and forth a bit during spring.
+34914,2/16/2016,0:00:29,46.6960839,-114.0950872,Alive,No drop,NA,Female,140380,Resident,NA,NA,NA,NA,,
+34915,2/15/2016,14:00:29,46.74007,-114.03789,Alive,Dropoff,NA,Female,140400,Resident,NA,NA,NA,NA,,
+34916,2/16/2016,0:00:48,46.7389964,-114.0499897,Alive,No drop,NA,Female,140480,Resident,NA,NA,NA,NA,,
+2204,2/15/2016,23:01,46.798022,-113.777382,Alive,Dropoff,NA,Female,140560,Switch,April,Nov,March,NA,Davis Ck,migrated 2014 but not 2015. Looks like she may have started tomigrate in Nov2015 but then turned back to summer range
+34917,2/15/2016,14:00:48,46.74049,-114.038,Alive,Dropoff,NA,Female,140600,Resident,NA,NA,NA,NA,,a bit distinct but prob not enough to count
+34918,2/15/2016,16:00:48,46.51197,-113.98295,Alive,Dropoff,NA,Female,140630,Resident,NA,NA,NA,NA,,
+34919,2/15/2016,18:00:32,46.6955489,-114.1067892,Alive,Dropoff,NA,Female,140650,Resident,NA,NA,NA,NA,,
+34920,2/15/2016,14:00:29,46.80351,-114.00277,Alive,Dropoff,NA,Female,140680,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34921,2/15/2016,20:00:30,46.7379886,-114.0516514,Alive,Dropoff,NA,Female,140710,Resident,NA,NA,NA,NA,,
+34922,2/15/2016,16:00:30,46.71631,-113.89076,Alive,Dropoff,NA,Female,140800,Switch,May,Nov,April,NA,Davis Ck,"migrated 2014 but not 2015. Same general area as other switcher, but overwintered 2016 in different area (same as her summer range)"
+34923,2/15/2016,10:00:22,46.79819,-114.01412,Alive,Dropoff,NA,Female,140850,Migrant,May,Nov,March,Oct,Davis Ck,"Clear directed mvmt May 3 14, Nov 2 14, Mar 16-17 15,  Oct 29-30 15"
+34924,2/15/2016,12:00:17,46.73166,-114.01592,Alive,Dropoff,NA,Female,140890,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34925,12/18/2014,2:00:29,46.65792,-113.96676,Dead,Harvest,NA,Female,140900,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+3518,2/16/2016,0:01,46.801696,-114.029154,Alive,Dropoff,NA,Female,140910,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34926a,12/1/2014,18:00:12,46.46368,-113.92627,Dead,Unknown,NA,Female,140920,Resident,NA,NA,NA,NA,Burnt Fk,
+35018,2/15/2016,14:00:29,46.73151,-114.01653,Alive,Dropoff,NA,Female,140940,Resident,NA,NA,NA,NA,,
+34928,2/15/2016,14:00:19,46.7316,-114.01625,Alive,Dropoff,NA,Female,140960,Resident,NA,NA,NA,NA,,
+34929,2/15/2016,18:00:18,46.494625,-113.9776347,Alive,Dropoff,NA,Female,140980,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34930,12/3/2015,12:00:29,46.72933,-114.01216,Unknown,Early drop,NA,Female,141000,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34931,2/15/2016,16:00:54,46.49127,-113.98131,Alive,Dropoff,NA,Female,141010,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34932,2/15/2016,16:00:13,46.73145,-114.01635,Alive,Dropoff,NA,Female,141060,Resident,NA,NA,NA,NA,,
+34933,2/15/2016,14:00:08,46.74027,-114.03715,Alive,Dropoff,NA,Female,141070,Resident,NA,NA,NA,NA,,
+34934,2/15/2016,18:00:48,46.7390461,-114.0423364,Alive,Dropoff,NA,Female,141080,Resident,NA,NA,NA,NA,,
+34935,12/26/2014,14:00:13,46.70199,-114.1006,Dead,Vehicle,NA,Female,141090,Resident,NA,NA,NA,NA,,one random walkabout in june. Calving?
+34936,2/15/2016,18:00:30,46.7388036,-114.0422644,Alive,Dropoff,NA,Female,141100,Resident,NA,NA,NA,NA,,
+34937a,9/26/2014,16:00:44,46.6558811,-113.9058158,Dead,Wounding loss,NA,Female,141110,Migrant,April,Aug,NA,NA,MPG ,"Hard to pin down dates. Does use distinct areas, but lots of shared area/overlap."
+34938,2/15/2016,14:00:30,46.79925,-114.01164,Alive,Dropoff,NA,Female,141120,Migrant,May,Nov,April,Oct-Nov,Davis Ck,Clear directed movements
+34939,2/15/2016,14:00:19,46.73145,-114.0173,Alive,Dropoff,NA,Female,141130,Resident,NA,NA,NA,NA,,some parts distinct but mostly overlap
+34940,2/15/2016,18:00:29,46.4945553,-113.9756736,Alive,Dropoff,NA,Female,141150,Migrant,May,Oct,May,Sept,Burnt Fk,Decent separation
+34941,10/27/2015,20:00:20,46.83896,-113.84393,Unknown,Collar malfunction,NA,Female,141160,Migrant,May,Oct,April,Unknown,Davis Ck,Clear directed movements - 1st one apr31-may1. Collar malfunctioned prior to fall mig
+34943a,9/6/2014,10:00:48,46.6645194,-113.9182583,Dead,Wounding loss,NA,Male,141170,Intermediate,NA,NA,NA,NA,Davis Ck,may be more concentrated in separate locations but still in same general area and does some back-and-forth (esp late jun-early jul)
+34944,9/4/2015,18:13:54,46.60918,-113.75385,Unknown,Collar malfunction,NA,Male,141180,Migrant,May,Sept,April,NA,Ambrose,Collar malfunctioned prior to fall mig15
+34945a,10/25/2014,10:00:30,46.56168,-113.91504,Dead,Harvest,NA,Male,141200,Migrant,Jun,Aug,NA,NA,Ambrose,Only on summer range Jul and August - but definitely in one distinct place during that time
+34947a,10/26/2014,14:00:43,46.51274,-113.91878,Dead,Wounding loss,NA,Male,141220,Migrant,Jul,Sept,NA,NA,Ambrose,"Not huge spatial separation, but used distinct area for August and Sept"
+34948,2/15/2016,14:00:47,46.40325,-113.95141,Alive,Dropoff,NA,Male,141260,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34949,10/4/2014,4:00:30,46.47678,-113.91188,Unknown,Collar malfunction,NA,Male,141290,Intermediate,NA,NA,NA,NA,Burnt Fk,overlap + distinct?
+34950a,9/19/2014,8:00:29,46.70986,-114.05596,Dead,Harvest,NA,Male,141300,Migrant,May,Sept,NA,NA,Davis Ck,Cool May walkabout to RockCk/Hwy
+34951,9/18/2015,20:00:29,46.31237,-113.71539,Unknown,Collar malfunction,NA,Male,141340,Migrant,May,Oct,May,Unknown,Burnt Fk,"Good separation, also fall cluster. Collar stopped working prior to fall mig time"
+34952a,12/1/2014,14:00:49,46.55997,-113.88005,Dead,Wounding loss,NA,Male,141380,Migrant,May,Sept,NA,NA,Ambrose,Took his sweet time migrating - hung in same area for like a month
+34953,12/5/2014,2:00:16,46.7859,-114.04552,Dead,Unknown,NA,Male,141400,Migrant,May,Oct,NA,NA,Ambrose,All over the place in fall
+34955,10/2/2015,6:00:29,46.38614,-114.04166,Unknown,Collar malfunction,NA,Male,141470,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+3529,2/15/2016,23:00,46.741375,-114.038345,Alive,Dropoff,NA,Female,141490,Resident,NA,NA,NA,NA,,
+34956a,11/11/2014,12:00:29,46.69176,-113.89958,Dead,Harvest,NA,Male,141500,Migrant,May,Oct,NA,NA,MPG,"7yo at capture, 6x8. Crossed to Ski Hill one time in late Mar and then hung there a few days early Oct, then went back toawrds summer area, then got shot"
+34957,11/21/2015,10:00:21,46.56969,-113.89403,Dead,Harvest,NA,Male,141520,Intermediate,NA,NA,NA,NA,,overlap + distinct?
+34958,2/15/2016,12:00:48,46.72732,-113.9542,Alive,Dropoff,NA,Male,141560,Migrant,May,Oct,April,Sept,MPG,Hard to nail down Fall14 migration - spent about a month in an intermediate area (on a pivot...). Similar movement pattern 2015 but shorter/more directed
+34959a,9/13/2014,6:00:27,46.79272,-113.77155,Dead,Harvest,NA,Male,141570,Migrant,May,NA,NA,NA,Davis Ck,Almost has a separate spring range 4/22 - 5/30
+34960a,11/19/2014,16:00:22,46.73347,-114.11222,Dead,Harvest,NA,Male,141580,Migrant,May,NA,NA,NA,Amrose/Ski Hill,"2yo at capture. Started around Davis, crossed to Ski Hill late May and stayed"
+34961,11/27/2015,16:00:40,46.4285775,-113.9294897,Dead,Wounding loss,NA,Male,141610,Resident,NA,NA,NA,NA,,
+34962,10/19/2014,2:00:17,46.73409,-114.072,Unknown,Collar malfunction,NA,Male,141630,Intermediate,NA,NA,NA,NA,Davis Ck,"Moved from N to S side of Davis mid-late March, but popped back a couple times during spring."
+34913,2/16/2016,0:00:30,46.7262144,-113.7095339,Alive,No drop,NA,Female,150360,Migrant,NA,NA,April,Oct,Ambrose,Totally different winter ranges in 2014 and 2015 (each separate from the summer range). Fall mig more direct/obvious than spring (Oct 25).
+34926,2/16/2016,0:00:17,46.49504,-113.9788183,Alive,No drop,NA,Female,150920,Migrant,NA,NA,March,Sept,Burnt Fk,Winters on N side of Burnt Fk and summers on S side. Clear movement Mar 15 and Sept 9.  Same winter range both years.
+34937,11/26/2015,8:00:30,46.5278586,-113.9746472,Dead,Harvest,NA,Female,151110,Resident,NA,NA,NA,NA,,obvious overlap but also some distinct seasonal areas
+34943,10/5/2015,8:00:30,46.70816,-114.01395,Dead,Harvest,NA,Male,151170,Resident,NA,NA,NA,NA,Davis Ck,3yo at capture
+34945,2/16/2016,0:00:24,46.7237792,-113.9511042,Alive,No drop,NA,Male,151200,Migrant,NA,NA,April,Sept,Ambrose,Slightly different winter ranges each year. Interesting movement path spr14
+34947,10/1/2015,8:00:51,46.47719,-113.93009,Unknown,Collar malfunction,NA,Male,151220,Migrant,NA,NA,Mar-Apr,Sept,Burnt Fk,Good separation
+34950,11/20/2015,19:38:59,46.7711161,-114.0296386,Dead,Early drop,Harvest,Male,151300,Resident,NA,NA,NA,NA,MPG/Ski Hill,3yo at capture. Crossed back and forth multiple times
+34952,10/30/2015,10:00:19,46.49712,-113.92353,Unknown,Collar malfunction,NA,Male,151380,Migrant,NA,NA,May,Sept,Burnt Fk,Dates hard to pin down
+34959,2/16/2016,0:00:30,46.7345633,-113.9813356,Alive,No drop,NA,Male,151570,Migrant,NA,NA,April,Oct,MPG,Distinct seasonal clusters but shared intermediate area. Hard to pin down exact migration timing due to shared space. Not super far movement.
+34960,9/17/2015,2:00:02,46.46793,-113.94344,Unknown,Collar malfunction,NA,Male,151580,Resident,NA,NA,NA,NA,,only a few winter locs
