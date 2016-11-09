@@ -22,19 +22,34 @@ library(dplyr)
 
 ## read in data (already subsetted to females only)
 rawdata <- read.csv("../Migration/HRoverlap/volumeintersection.csv")
+vi50 <- read.csv("volumeintersection50.csv")
 
-## categorize individuals (and rank, for funzies) 
+## categorize individuals 
+#  and rank by 50% UD volume overlap 
 mig <- rawdata %>%
   dplyr::select(-FallVI) %>%
   rename(VI = SprVI) %>%
-  transform(Rank = rank(-VI, ties.method = "average")) %>%
-  transform(Mig = ifelse(VI >= 0.35, "Resident",
-                  ifelse(VI == 0, "Migrant", 
+  right_join(vi50, by = "IndivYr") %>%
+  select(-c(Sex, AnimalID.x, AnimalID.y)) %>%
+  rename(VI50 = SprVI50) %>%
+  transform(Rank = rank(-VI50, ties.method = "average")) 
+
+# determine appropriate cutoff
+hist(mig$VI50)
+median(mig$VI50)
+hist((mig$VI50)^(1/2))
+
+migstatus <- mig %>%
+  transform(Mig = ifelse(VI50 >= 0.25, "Resident",
+                  ifelse(VI50 < 0.001, "Migrant", 
                          "Intermediate")))
-            
-## visualize
-plot(VI ~ Rank, col = Mig, data=mig)
+
+par(mfrow=c(2,1))
+hist(migstatus$VI)
+hist(migstatus$VI50)
+
+plot(VI50 ~ Rank, col = Mig, data=migstatus)
   #oh hell, everybody's intermediate... rethink
-length(which(mig$Mig == "Migrant")) # still feel ok about this one
-length(which(mig$Mig == "Resident")) # nope nope nope
-length(which(mig$Mig == "Intermediate"))
+length(which(migstatus$Mig == "Migrant")) # still feel ok about this one
+length(which(migstatus$Mig == "Resident")) # nope nope nope
+length(which(migstatus$Mig == "Intermediate"))
