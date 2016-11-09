@@ -20,36 +20,48 @@ rm(wd_workcomp, wd_laptop)
 ## libraries
 library(dplyr)
 
-## read in data (already subsetted to females only)
-rawdata <- read.csv("../Migration/HRoverlap/volumeintersection.csv")
-vi50 <- read.csv("volumeintersection50.csv")
+## read in data; combine and clean
+vi95 <- read.csv("../Migration/HRoverlap/volumeintersection.csv")
+vi50 <- read.csv("../Migration/HRoverlap/volumeintersection50.csv")
+look <- read.csv("../Migration/MethodComparison/migstatus-prelimlook.csv") %>%
+  select(AnimalID, Status)
 
-## categorize individuals 
-#  and rank by 50% UD volume overlap 
-mig <- rawdata %>%
-  dplyr::select(-FallVI) %>%
-  rename(VI = SprVI) %>%
-  right_join(vi50, by = "IndivYr") %>%
-  select(-c(Sex, AnimalID.x, AnimalID.y)) %>%
-  rename(VI50 = SprVI50) %>%
-  transform(Rank = rank(-VI50, ties.method = "average")) 
+mig <- vi95 %>%
+  rename(VI95 = SprVI) %>%
+  select(-c(AnimalID, Sex)) %>% 
+  left_join(vi50, by = "IndivYr") %>%
+  rename(VI50 = SprVI) %>%
+  select(IndivYr, AnimalID, VI95, VI50) %>%
+  left_join(look, by = "AnimalID") %>%
+  rename(Look = Status)
 
-# determine appropriate cutoff
-hist(mig$VI50)
-median(mig$VI50)
-hist((mig$VI50)^(1/2))
 
-migstatus <- mig %>%
-  transform(Mig = ifelse(VI50 >= 0.25, "Resident",
-                  ifelse(VI50 < 0.001, "Migrant", 
-                         "Intermediate")))
+## categorize individuals into migratory bins
 
-par(mfrow=c(2,1))
-hist(migstatus$VI)
-hist(migstatus$VI50)
+# migrant
+length(which(mig$Look == "Migrant"))
+length(which(mig$VI95 == 0)); length(which(mig$VI50 == 0))
+  # define migrant using 95%, not 50%
 
-plot(VI50 ~ Rank, col = Mig, data=migstatus)
-  #oh hell, everybody's intermediate... rethink
-length(which(migstatus$Mig == "Migrant")) # still feel ok about this one
-length(which(migstatus$Mig == "Resident")) # nope nope nope
-length(which(migstatus$Mig == "Intermediate"))
+#resident
+length(which(mig$Look == "Resident"))
+length(which(mig$VI95 > 0.1)); length(which(mig$VI95 > 0.2))
+  # ok,somewhere in the ballpark or 10-20% VI
+length(which(mig$VI50 > 0))
+  # ooh i like this idea
+  # resident is anyone whose CORES (50% UD) overlap at all
+  # migrant is anyone whose HRs (95% UD) never overlap
+  # intermediate is everyone else
+
+
+mig <- transform(mig, 
+       MigStatus = ifelse(VI50 > 0, "Resident",
+                   ifelse(VI95 == 0, "Migrant",
+                          "Intermediate")))
+
+length(which(mig$MigStatus == "Migrant")) 
+length(which(mig$MigStatus == "Resident")) 
+length(which(mig$MigStatus == "Intermediate"))
+# me likey
+
+write.csv(mig, file = "migstatus.csv", row.names=FALSE)
