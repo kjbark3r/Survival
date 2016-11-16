@@ -36,23 +36,11 @@ mig <- vi95 %>%
   rename(Look = Status)
 
 
-## categorize individuals into migratory bins
+## discretize migratory behavior
 
-# migrant
-length(which(mig$Look == "Migrant"))
-length(which(mig$VI95 == 0)); length(which(mig$VI50 == 0))
-  # define migrant using 95%, not 50%
-
-#resident
-length(which(mig$Look == "Resident"))
-length(which(mig$VI95 > 0.1)); length(which(mig$VI95 > 0.2))
-  # ok,somewhere in the ballpark or 10-20% VI
-length(which(mig$VI50 > 0))
-  # ooh i like this idea
   # resident is anyone whose CORES (50% UD) overlap at all
   # migrant is anyone whose HRs (95% UD) never overlap
   # intermediate is everyone else
-
 
 mig <- transform(mig, 
        MigStatus = ifelse(VI50 > 0, "Resident",
@@ -62,6 +50,9 @@ mig <- transform(mig,
 length(which(mig$MigStatus == "Migrant")) 
 length(which(mig$MigStatus == "Resident")) 
 length(which(mig$MigStatus == "Intermediate"))
-# me likey
 
 write.csv(mig, file = "migstatus.csv", row.names=FALSE)
+
+## survival analysis
+
+  # coming soon....
