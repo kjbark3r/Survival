@@ -1,33 +1,60 @@
-####Survival Analysis for 2014-5 Sapphire adult elk
+###############################
+#  SURVIVAL ANALYSIS - NSERP  #
+#        KRISTIN BARKER       #
+#           JAN 2017          #
+###############################
+
+#################
+####  Setup  ####
+#################
+
+
+# PACKAGES #
+
 require(lubridate)
-require(tidyr)
-require(dplyr)
 require(survival)
 require(ggplot2)
 require(survMisc)
 require(data.table)
 require(eha)
 require(RODBC)
+require(tidyr)
+require(dplyr)
 
-#setwd("C:/Users/CF2752/Documents/Sapphire Elk/Progress Reports/FinalReport/Adult Survival")
-setwd("E:\\NSERP_DeVoe\\Sapphire Elk\\Data\\SurvivalAnalysis\\Adult Survival")
 
-channel <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
-                                   dbq=E:/NSERP_DeVoe/Sapphire Elk/Data/GPSdata/SapphireElkProject_ElkDatabase.accdb")
+# WORKING DIRECTORY & ACCESS CONNECTION #
+
+wd_workcomp <- "C:\\Users\\kristin.barker\\Documents\\GitHub\\Survival"
+wd_laptop <- "C:\\Users\\kjbark3r\\Documents\\GitHub\\Survival"
+if (file.exists(wd_workcomp)) {setwd(wd_workcomp)
+} else {setwd(wd_laptop)}
+
+if (file.exists(wd_workcomp)) {
+  channel <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+                                dbq=C:/Users/kristin.barker/Documents/NSERP/Databases and Mort Reports/SapphireElkProject_ElkDatabase.accdb")
+  } else {
+      channel <- odbcDriverConnect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};
+                                    dbq=C:/Users/kjbark3r/Documents/NSERP/Databases/SapphireElkProject_ElkDatabase.accdb")
+    }
+rm(wd_workcomp, wd_laptop)
+
 
 #####################################################################################
 #Prep the data - Data from Mortality table in GPS database
 #####################################################################################
 
 ###Read in and format file of survival information/mortality table (1 row per individual)
-adultelk <- sqlQuery(channel, paste("select * from MortalityInfo"))
-adultelk <- adultelk %>%
+adultelkdb <- sqlQuery(channel, paste("select * from MortalityInfo"))
+
+
+adultelk <- adultelkdb %>%
   rename(AnimalID = `Animal ID`) %>%
   select(AnimalID, Gender, AgeCapture, CaptureDate, Fate, Cause1, MortDate) %>%
   mutate(Gender = factor(trimws(Gender)), #trim off space present in gender column ("Female ")
          MortDate = mdy(MortDate),  # convert dates
          CaptureDate = as.Date(CaptureDate, format = "%Y-%m-%d")) %>%
-  filter(Fate != "Unknown") # remove unknowns
+  filter(Fate != "Unknown") %>% # remove unknowns
+  filter(Gender == "Female") # remove males (for use in migration analyses)
 
 #####################################################################################
 #Formatting/structuring data for the biological year
@@ -37,7 +64,7 @@ adultelk <- adultelk %>%
 bioYear1 <- mdy("06/01/2014") # June 1, 2014 - May 31, 2015
 bioYear2 <- mdy("06/01/2015") # June 1, 2015 - May 31, 2016
 bioYear3 <- mdy("06/01/2016") # June 1, 2016 +  # this category will be filtered out, but needs to be used to properly code exit timing
-lastDay <- as.numeric(mdy("02/19/2016") - bioYear2) # Last day animals checked (as far as I know): February 19, 2016 (Day 263 from beginning of bioYear2)
+lastDay <- as.numeric(mdy("02/16/2016") - bioYear2) # Last day of collar drop (i.e., last TransEndDate, day 260 from beginning of bioYear2)
 
 #Adding rows for each individual surviving into subsequent bioyears, first create column for each bioYear
 adultelk <- adultelk %>% 
@@ -48,7 +75,7 @@ adultelk <- adultelk %>%
 #Using gather to create rows for each bioYear surviving to 
 adultelk <- gather(adultelk, bioYear, bioYear.yrs, bioYear1:bioYear3, na.rm = TRUE)
 
-#Calculate entry and exit days from biological year (Day 1 = June 1 , 2014, Day 1 = June 1, 2015)
+#Calculate entry and exit days from biological year (Day 1 = June 1, 2014, Day 1 = June 1, 2015)
 adultelk <- adultelk %>%
   mutate(enter.bio = ifelse(CaptureDate <= bioYear1, 1, # captured before bioYear 1 (and survived to begining of bioYear1), start day 1
                             ifelse(CaptureDate > bioYear1 & CaptureDate < bioYear2 & bioYear == "bioYear1", CaptureDate - bioYear1, # captured within bioYear1, capture date minus bioYear1
