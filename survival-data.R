@@ -40,12 +40,17 @@ rm(wd_workcomp, wd_laptop)
 
 
 #####################################################################################
-#Prep the data - Data from Mortality table in GPS database
+#Data prep
 #####################################################################################
 
-###Read in and format file of survival information/mortality table (1 row per individual)
+###Read in and format file of survival information from Access DB (1 row per individual)
 adultelkdb <- sqlQuery(channel, paste("select * from MortalityInfo"))
 
+# capture location info (to remove Ski Hill elk)
+caploc <- read.csv("../Nutrition/capture-locations.csv")
+
+# migratory status info (to compare groups later)
+mig <- read.csv("../Nutrition/migstatus.csv")
 
 adultelk <- adultelkdb %>%
   rename(AnimalID = `Animal ID`) %>%
@@ -53,8 +58,10 @@ adultelk <- adultelkdb %>%
   mutate(Gender = factor(trimws(Gender)), #trim off space present in gender column ("Female ")
          MortDate = mdy(MortDate),  # convert dates
          CaptureDate = as.Date(CaptureDate, format = "%Y-%m-%d")) %>%
-  filter(Fate != "Unknown") %>% # remove unknowns
-  filter(Gender == "Female") # remove males (for use in migration analyses)
+  filter(Fate != "Unknown") %>% #remove unknown fates
+  filter(Gender == "Female") %>% #males not included in migration analyses
+  left_join(caploc, by = "AnimalID") %>%
+  filter(Location != "Ski Hill") #ski hill elk not included in migration analyses
 
 #####################################################################################
 #Formatting/structuring data for the biological year

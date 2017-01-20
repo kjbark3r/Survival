@@ -38,7 +38,7 @@ library(dplyr) #for joins
 ###########################################################################################
 
 #GPS DATA FROM COLLARS, PLUS MIGRATION SEASON/YEAR
-locs <- read.csv("../Migration/HRoverlap/collardata-locsonly-equalsampling.csv", as.is = TRUE, header = TRUE)
+locs <- read.csv("../ElkDatabase/collardata-locsonly-equalsampling.csv", as.is = TRUE, header = TRUE)
 locs$Date <- as.Date(locs$Date, "%Y-%m-%d")
 
 # delineate winter and summer HRs
