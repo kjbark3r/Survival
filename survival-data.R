@@ -118,8 +118,16 @@ length(unique(adultelk$AnimalID[adultelk$Gender == "Male"])) # males
 #Filter out bioYear3
 adultelk <- filter(adultelk, bioYear != "bioYear3")
 
+# add migratory behavior to data
+survdat <- adultelk %>%
+  left_join(mig, by = "AnimalID") %>%
+  transform(MigLump = ifelse(MigStatus == "Migrant", "Migratory", "Non-Migratory")) %>%
+  transform(MigStatus = factor(MigStatus,
+                            levels = c("Resident", "Intermediate", "Migrant"),
+                            ordered = TRUE))
+
 #####################################################################################
-#Look at patterns of survival over all 3 years
+#Look at patterns of survival over both years
 #####################################################################################
 attach(adultelk)
 head(adultelk)
@@ -128,6 +136,62 @@ par(mfrow = c(1,2))
 plot(Surv(enter.bio,exit.bio,event.bio), fn = "cum")
 plot(Surv(enter.bio,exit.bio,event.bio), fn = "surv")
 detach(adultelk)
+
+##survival by migrank
+plot(Surv(enter.bio,exit.bio,event.bio)~MigRank, fn = "surv",data=survdat)  
+summary(surv.rank)
+
+#####################################################################################
+#Model surival - Annual KM estimate
+#####################################################################################
+
+##overall survival
+surv.all<-survfit(Surv(enter.bio,exit.bio,event.bio)~1,conf.type="log-log",data=adultelk)  
+summary(surv.all)
+
+##survival by year
+annual.Year<-survfit(Surv(enter.bio,exit.bio,event.bio)~bioYear.yrs,conf.type="log-log",data=adultelk)
+summary(annual.Year)
+
+
+
+#####################################################################################
+# (Smoothed) plot of survival hazard by MigRank (continuum)
+#####################################################################################
+
+coxfit <- coxph(Surv(exit.bio,event.bio)~MigRank, data=survdat)
+summary(coxfit)
+par(mfrow=c(1,1))
+plot(survdat$MigRank, predict(coxfit))
+
+#apparently i can plot confidence intervals with data from this
+  # but i don't entirely understand how
+coxfitse <- predict(coxfit, type='terms', se=T)
+plot(survdat$MigRank, coxfitse$fit)
+plot(survdat$MigRank, coxfitse$fit.se)
+
+#####################################################################################
+# Testing for diffs bt mig behaviors
+#####################################################################################
+
+
+# use log-rank test, not cox ph, bc no events in one group
+  # note had to remove left-truncation info to make this work
+diffs.all3 <- survdiff(Surv(exit.bio,event.bio)~MigStatus, data = survdat)
+diffs.all3                     
+                      
+diffs.just2 <- survdiff(Surv(exit.bio,event.bio)~MigLump, data = survdat)
+diffs.just2 
+               
+diffs.ri <- survdiff(Surv(exit.bio,event.bio)~MigStatus, 
+                     data = subset(survdat, MigStatus == "Resident" |
+                                     MigStatus == "Intermediate"))
+diffs.ri        
+                      
+#####################################################################################
+# CUT/UNUSED CODE
+#####################################################################################
+
 ##Look at female survival
 adultelk1 <- subset(adultelk, Gender=="Female")
 attach(adultelk1)
@@ -142,17 +206,6 @@ plot(Surv(enter.bio,exit.bio,event.bio), fn = "cum", main = "Cumulative hazard f
 plot(Surv(enter.bio,exit.bio,event.bio), fn = "surv", main = "Survivor function males")
 detach(adultelk2)
 
-
-#####################################################################################
-#Model surival 
-#####################################################################################
-###Cow Annual KM estimates - ageGroup, rstudyArea, Year
-annual.all<-survfit(Surv(enter.bio,exit.bio,event.bio)~1,conf.type="log-log",data=adultelk1)  #overall annual cow survival
-summary(annual.all)
-
-annual.Year<-survfit(Surv(enter.bio,exit.bio,event.bio)~bioYear.yrs,conf.type="log-log",data=adultelk1)
-summary(annual.Year)
-
 ###Bull Annual KM estimates - ageGroup, rstudyArea, Year
 annual.all<-survfit(Surv(enter.bio,exit.bio,event.bio)~1,conf.type="log-log",data=adultelk2)  #overall annual cow survival
 summary(annual.all)
@@ -160,19 +213,30 @@ summary(annual.all)
 annual.Year<-survfit(Surv(enter.bio,exit.bio,event.bio)~bioYear.yrs,conf.type="log-log",data=adultelk2)
 summary(annual.Year)
 
-
-
-#####################################################################################
-#Log-Rank tests for diff in year
-#####################################################################################
-###Annual KM estimates - Sex
-summary(coxph(Surv(enter.bio,exit.bio,event.bio)~Gender, data=adultelk))
-
 ###Cow Annual KM estimates - Year
 summary(coxph(Surv(enter.bio,exit.bio,event.bio)~bioYear.yrs, data=droplevels(adultelk1)))
 
 ###Bull Annual KM estimates - Year
 summary(coxph(Surv(enter.bio,exit.bio,event.bio)~bioYear.yrs, data=droplevels(adultelk2))) 
+
+# test for diffs bt the 3 groups -  
+# WRONG BC CAN'T USE COXPH when no events in one group
+summary(coxph(Surv(enter.bio, exit.bio, event.bio) ~ MigStatus, data = survdat))
+summary(coxph(Surv(enter.bio, exit.bio, event.bio) ~ MigLump, data = survdat))
+survmr <- filter(survdat, MigStatus == "Migrant" | MigStatus == "Resident")
+survmi <- filter(survdat, MigStatus == "Migrant" | MigStatus == "Intermediate")
+survri <- filter(survdat, MigStatus == "Resident" | MigStatus == "Intermediate")
+summary(coxph(Surv(enter.bio, exit.bio, event.bio) ~ MigStatus, data = survmr))
+summary(coxph(Surv(enter.bio, exit.bio, event.bio) ~ MigStatus, data = survri))
+
+# logrank test for diffs
+logrank <- survdiff(Surv(enter.bio,exit.bio,event.bio)~MigStatus, data = survdat)
+# ok... apparently can't use this (Error: Right censored data only)
+# trying cox ph 'score' test which is apparently almost the same as log-ranl
+coxscore <- coxph(Surv(enter.bio,exit.bio,event.bio)~MigStatus, data = survdat)
+coxscore                      
+# warning about infinite beta... YEAH I KNOW THAT THANKS   
+# may be able to fix log-rank error by creating new Surv obj
 
 
 
